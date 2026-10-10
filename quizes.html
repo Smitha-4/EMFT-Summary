@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMFT Question Bank - Coulomb's Law & Electrostatic Force</title>
+    <!-- MathJax Configuration for Single Dollar Sign Support -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #bb86fc;
+            --border-color: #333333;
+            --option-bg: #2d2d2d;
+            --option-hover: #383838;
+            --solution-bg: #1a2634;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 30px;
+        }
+        .question-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .meta {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .question-text {
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+        .options {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+        }
+        .options li {
+            background-color: var(--option-bg);
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        .options li:hover {
+            background-color: var(--option-hover);
+        }
+        .solution {
+            background-color: var(--solution-bg);
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-top: 12px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            display: none;
+            overflow-x: auto;
+        }
+        .toggle-btn {
+            background-color: var(--accent-color);
+            color: #121212;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        .toggle-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>EMFT Question Bank</h1>
+    <h3 style="text-align: center; color: #aaa; margin-top: -20px; margin-bottom: 30px;">Topic: Coulomb's Law & Electrostatic Force (EE / ECE)</h3>
+
+    <!-- Question 1 -->
+    <div class="question-card">
+        <div class="meta">GATE | EE / ECE</div>
+        <div class="question-text">
+            Two point charges $Q_1 = 2\,\mu\text{C}$ and $Q_2 = -4\,\mu\text{C}$ are placed at coordinates $(0, 0, 0)$ m and $(0, 1, 0)$ m respectively in free space. The electrostatic force vector acting on $Q_2$ is:
+        </div>
+        <ul class="options">
+            <li>A) $-\mathbf{a}_y \, 71.9$ mN</li>
+            <li>B) $+\mathbf{a}_y \, 71.9$ mN</li>
+            <li>C) $-\mathbf{a}_x \, 35.8$ mN</li>
+            <li>D) $+\mathbf{a}_z \, 71.9$ mN</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleSolution(this)">Show Solution</button>
+        <div class="solution">
+            <strong>Answer:</strong> A<br>
+            <strong>Explanation:</strong> Using Coulomb's Law, $\mathbf{F}_{12} = \frac{Q_1 Q_2}{4\pi \varepsilon_0 |\mathbf{R}_{12}|^3} \mathbf{R}_{12}$. The position vector from $Q_1$ to $Q_2$ is $\mathbf{R}_{12} = \mathbf{a}_y$ m and $|\mathbf{R}_{12}| = 1$ m. Substituting the values yields a force of $-71.9\,\mathbf{a}_y$ mN acting on $Q_2$.
+        </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-card">
+        <div class="meta">ESE (IES) | EE</div>
+        <div class="question-text">
+            If the relative permittivity ($\varepsilon_r$) of the medium between two point charges increases from 1 to 4, the electrostatic force between them will:
+        </div>
+        <ul class="options">
+            <li>A) Increase by a factor of 4</li>
+            <li>B) Decrease by a factor of 4</li>
+            <li>C) Remain unchanged</li>
+            <li>D) Decrease by a factor of 2</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleSolution(this)">Show Solution</button>
+        <div class="solution">
+            <strong>Answer:</strong> B<br>
+            <strong>Explanation:</strong> Electrostatic force is inversely proportional to the permittivity of the medium: $F = \frac{1}{4\pi\varepsilon_0\varepsilon_r} \frac{q_1 q_2}{r^2}$. When $\varepsilon_r$ increases from 1 to 4, the force decreases by a factor of 4.
+        </div>
+    </div>
+
+    <!-- Question 3 -->
+    <div class="question-card">
+        <div class="meta">State PSU (AE/AEE) & YCT | ECE</div>
+        <div class="question-text">
+            Three identical point charges, each of magnitude $q$, are placed at the vertices of an equilateral triangle of side length $a$. The magnitude of the electrostatic force experienced by any one charge is:
+        </div>
+        <ul class="options">
+            <li>A) $\frac{q^2\sqrt{3}}{4\pi \varepsilon_0 a^2}$</li>
+            <li>B) $\frac{\sqrt{3}q^2}{4\pi \varepsilon_0 a^2}$</li>
+            <li>C) $\frac{q^2}{4\pi \varepsilon_0 a^2\sqrt{3}}$</li>
+            <li>D) $\frac{3q^2}{4\pi \varepsilon_0 a^2}$</li>
+        </ul>
+        <button class="toggle-btn" onclick="toggleSolution(this)">Show Solution</button>
+        <div class="solution">
+            <strong>Answer:</strong> B<br>
+            <strong>Explanation:</strong> The force due to each of the other two charges is $F_0 = \frac{q^2}{4\pi\varepsilon_0 a^2}$. Since they act at an angle of $60^\circ$, the resultant force is $F = \sqrt{F_0^2 + F_0^2 + 2F_0^2 \cos(60^\circ)} = \sqrt{3}F_0 = \frac{\sqrt{3}q^2}{4\pi \varepsilon_0 a^2}$.
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleSolution(button) {
+        const solution = button.nextElementSibling;
+        if (solution.style.display === "block") {
+            solution.style.display = "none";
+            button.textContent = "Show Solution";
+        } else {
+            solution.style.display = "block";
+            button.textContent = "Hide Solution";
+        }
+    }
+</script>
+
+</body>
+</html>

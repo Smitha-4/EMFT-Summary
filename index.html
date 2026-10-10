@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMFT Summary Hub</title>
+    
+    <!-- KaTeX CSS for Formula Styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    
+    <!-- KaTeX JavaScript Engine -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    
+    <!-- Auto-render extension to automatically parse $ and $$ formulas -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });"></script>
+
+    <style>
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --primary-color: #00adb5;
+            --text-color: #eeeeee;
+            --text-secondary: #aaaaaa;
+            --border-color: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        /* Main Content Layout */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 0 0.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Responsive Grid Layouts */
+        .grid-2, .grid-3, .grid {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        /* Cards & Section Boxes */
+        .content-box {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            overflow-x: auto;
+        }
+
+        .sub-card {
+            background-color: var(--bg-color);
+            padding: 1.2rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary-color);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .card-link {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 0.85rem;
+        }
+
+        /* Section Titles */
+        h2.section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.4rem;
+        }
+
+        h3.subsection-title {
+            color: var(--text-color);
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        /* Tables for Mobile & Tab */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            background-color: var(--bg-color);
+            border-radius: 6px;
+            min-width: 500px;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: var(--border-color);
+            color: var(--text-color);
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        /* KaTeX responsiveness adjustments */
+        .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.4rem 0;
+            max-width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            margin-top: 3rem;
+            font-size: 0.85rem;
+        }
+
+        /* Media Queries for Smaller Mobile Viewports */
+        @media (max-width: 600px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.8rem 1rem;
+            }
+
+            .nav-menu {
+                gap: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .content-box {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Menu Bar -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">EMFT Hub</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="electrostatics.html">Electrostatics</a></li>
+                <li><a href="magnetostatics.html">Magnetostatics</a></li>
+                <li><a href="waves.html">Transmission & Waveguides</a></li>
+                <li><a href="quizes.html">Quiz</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <section class="hero">
+            <h1>Electromagnetic Field Theory</h1>
+            <p>Your comprehensive summary guide to fields, vectors, coordinate systems, and Maxwell's equations.</p>
+        </section>
+
+        <!-- Mathematical Foundation Section -->
+        <section class="content-box">
+            <h2 class="section-title">Mathematical Foundation: Scalars, Vectors & Coordinate Systems</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+                Electromagnetic Field Theory relies heavily on vector calculus and multi-variable coordinate systems. Below is a mobile-friendly quick-reference summary.
+            </p>
+
+            <!-- Scalars vs Vectors Grid -->
+            <div class="grid-2" style="margin-bottom: 2rem;">
+                <div class="sub-card">
+                    <h3 style="color: var(--primary-color); margin-bottom: 0.6rem; font-size: 1.1rem;">Scalars</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.8rem;">Quantities described by magnitude only (e.g., Temperature, Electric Potential $V$, Charge $Q$).</p>
+                    <ul style="color: var(--text-secondary); padding-left: 1.1rem; font-size: 0.85rem;">
+                        <li>No directional component</li>
+                        <li>Follows ordinary algebra</li>
+                    </ul>
+                </div>
+                
+                <div class="sub-card">
+                    <h3 style="color: var(--primary-color); margin-bottom: 0.6rem; font-size: 1.1rem;">Vectors</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.8rem;">Quantities with magnitude and direction (e.g., Electric Field $\mathbf{E}$, Magnetic Field $\mathbf{H}$).</p>
+                    <ul style="color: var(--text-secondary); padding-left: 1.1rem; font-size: 0.85rem;">
+                        <li>Expressed with unit vectors</li>
+                        <li>Uses dot/cross operations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Coordinate Systems Table -->
+            <h3 class="subsection-title">Standard Coordinate Systems</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>System</th>
+                            <th>Variables</th>
+                            <th>Unit Vectors</th>
+                            <th>Best Used For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Cartesian</td>
+                            <td>$(x, y, z)$</td>
+                            <td>$\mathbf{a}_x, \mathbf{a}_y, \mathbf{a}_z$</td>
+                            <td>Rectangular geometries, planes</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Cylindrical</td>
+                            <td>$(\rho, \phi, z)$</td>
+                            <td>$\mathbf{a}_\rho, \mathbf{a}_\phi, \mathbf{a}_z$</td>
+                            <td>Cables, coaxial wires</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Spherical</td>
+                            <td>$(r, \theta, \phi)$</td>
+                            <td>$\mathbf{a}_r, \mathbf{a}_\theta, \mathbf{a}_\phi$</td>
+                            <td>Point charges, spherical antennas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Essential Vector Formulas -->
+            <h3 class="subsection-title">Essential Vector Formulas</h3>
+            <div class="grid-2">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 0.95rem;">Dot Product</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">$$\mathbf{A} \cdot \mathbf{B} = AB \cos\theta$$</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 0.95rem;">Cross Product</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">$$\mathbf{A} \times \mathbf{B} = AB \sin\theta \, \mathbf{a}_n$$</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 0.95rem;">Gradient</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">$$\nabla V = \frac{\partial V}{\partial x}\mathbf{a}_x + \frac{\partial V}{\partial y}\mathbf{a}_y + \frac{\partial V}{\partial z}\mathbf{a}_z$$</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 0.95rem;">Divergence</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">$$\nabla \cdot \mathbf{A} = \frac{\partial A_x}{\partial x} + \frac{\partial A_y}{\partial y} + \frac{\partial A_z}{\partial z}$$</p>
+                </div>
+            </div>
+
+            <!-- Coordinate Transformations -->
+            <h3 class="subsection-title" style="margin-top: 2rem;">Coordinate Transformation Formulas</h3>
+            <div class="grid-3" style="margin-top: 1rem;">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.6rem; font-size: 1rem;">Cartesian $\leftrightarrow$ Cylindrical</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;">$\rho = \sqrt{x^2 + y^2}$<br>$\phi = \tan^{-1}(y/x)$, $z = z$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$x = \rho \cos\phi$<br>$y = \rho \sin\phi$, $z = z$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.6rem; font-size: 1rem;">Cartesian $\leftrightarrow$ Spherical</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;">$r = \sqrt{x^2 + y^2 + z^2}$<br>$\theta = \cos^{-1}(z/r)$, $\phi = \tan^{-1}(y/x)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$x = r \sin\theta \cos\phi$<br>$y = r \sin\theta \sin\phi$, $z = r \cos\theta$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.6rem; font-size: 1rem;">Cylindrical $\leftrightarrow$ Spherical</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.5rem;">$r = \sqrt{\rho^2 + z^2}$<br>$\theta = \tan^{-1}(\rho/z)$, $\phi = \phi$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\rho = r \sin\theta$<br>$\phi = \phi$, $z = r \cos\theta$</p>
+                </div>
+            </div>
+
+            <!-- Differential Operators & Determinants -->
+            <h3 class="subsection-title" style="margin-top: 2rem;">Vector Operators & Curl Matrices</h3>
+            <div class="grid-3" style="margin-top: 1rem;">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cartesian $(x, y, z)$</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.6rem;"><strong>Div:</strong> $\frac{\partial A_x}{\partial x} + \frac{\partial A_y}{\partial y} + \frac{\partial A_z}{\partial z}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Curl Matrix:</strong></p>
+                    $$\nabla \times \mathbf{A} = \begin{vmatrix} \mathbf{a}_x & \mathbf{a}_y & \mathbf{a}_z \\ \frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\ A_x & A_y & A_z \end{vmatrix}$$
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cylindrical $(\rho, \phi, z)$</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.6rem;"><strong>Div:</strong> $\frac{1}{\rho}\frac{\partial}{\partial \rho}(\rho A_\rho) + \frac{1}{\rho}\frac{\partial A_\phi}{\partial \phi} + \frac{\partial A_z}{\partial z}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Curl Matrix:</strong></p>
+                    $$\nabla \times \mathbf{A} = \frac{1}{\rho} \begin{vmatrix} \mathbf{a}_\rho & \rho\mathbf{a}_\phi & \mathbf{a}_z \\ \frac{\partial}{\partial \rho} & \frac{\partial}{\partial \phi} & \frac{\partial}{\partial z} \\ A_\rho & \rho A_\phi & A_z \end{vmatrix}$$
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Spherical $(r, \theta, \phi)$</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.6rem;"><strong>Div:</strong> $\frac{1}{r^2}\frac{\partial}{\partial r}(r^2 A_r) + \frac{1}{r\sin\theta}\frac{\partial}{\partial \theta}(A_\theta \sin\theta)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Curl Matrix:</strong></p>
+                    $$\nabla \times \mathbf{A} = \frac{1}{r^2\sin\theta} \begin{vmatrix} \mathbf{a}_r & r\mathbf{a}_\theta & r\sin\theta\mathbf{a}_\phi \\ \frac{\partial}{\partial r} & \frac{\partial}{\partial \theta} & \frac{\partial}{\partial \phi} \\ A_r & rA_\theta & r\sin\theta A_\phi \end{vmatrix}$$
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Operations in Electromagnetics -->
+        <section class="content-box">
+            <h2 class="section-title">Advanced Operations & Integral Theorems</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+                Higher-order spatial tracking, vector identities, and multi-variable integration routines applied to physical field problems.
+            </p>
+
+            <div class="grid-2">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1.05rem;">1. The Laplacian ($\nabla^2$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.6rem;">Divergence of a gradient ($\nabla \cdot \nabla V$). Governs Poisson's and Laplace's equations.</p>
+                    <ul style="color: var(--text-secondary); padding-left: 1.1rem; font-size: 0.8rem;">
+                        <li><strong>Cartesian:</strong> $\frac{\partial^2 V}{\partial x^2} + \frac{\partial^2 V}{\partial y^2} + \frac{\partial^2 V}{\partial z^2}$</li>
+                        <li><strong>Cylindrical:</strong> $\frac{1}{\rho}\frac{\partial}{\partial \rho}(\rho\frac{\partial V}{\partial \rho}) + \frac{1}{\rho^2}\frac{\partial^2 V}{\partial \phi^2} + \frac{\partial^2 V}{\partial z^2}$</li>
+                        <li><strong>Spherical:</strong> $\frac{1}{r^2}\frac{\partial}{\partial r}(r^2\frac{\partial V}{\partial r}) + \frac{1}{r^2\sin\theta}\frac{\partial}{\partial \theta}(\sin\theta\frac{\partial V}{\partial \theta})$</li>
+                    </ul>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1.05rem;">2. Field Integrals</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.6rem;">Aggregating localized forces across space configurations.</p>
+                    <ul style="color: var(--text-secondary); padding-left: 1.1rem; font-size: 0.8rem;">
+                        <li><strong>Line ($\int \mathbf{E} \cdot d\mathbf{l}$):</strong> Voltage/work along path contours.</li>
+                        <li><strong>Surface ($\iint \mathbf{D} \cdot d\mathbf{s}$):</strong> Flux passing a boundary area.</li>
+                        <li><strong>Volume ($\iiint \rho \, dv$):</strong> Total enclosed charge/sources.</li>
+                    </ul>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1.05rem;">3. Integral Theorems</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.6rem;">Connecting macro-scale boundary parameters to micro-scale sources.</p>
+                    <ul style="color: var(--text-secondary); padding-left: 1.1rem; font-size: 0.8rem;">
+                        <li><strong>Divergence Theorem:</strong> $\iiint (\nabla \cdot \mathbf{A}) dv = \oint \mathbf{A} \cdot d\mathbf{s}$</li>
+                        <li><strong>Stokes' Theorem:</strong> $\iint (\nabla \times \mathbf{A}) \cdot d\mathbf{s} = \oint \mathbf{A} \cdot d\mathbf{l}$</li>
+                    </ul>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1.05rem;">4. Wave Equations & Boundaries</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.6rem;">Dynamic propagation behavior and material interface conditions.</p>
+                    <ul style="color: var(--text-secondary); padding-left: 1.1rem; font-size: 0.8rem;">
+                        <li><strong>Helmholtz Equation:</strong> $\nabla^2 \mathbf{E} - \mu\epsilon \frac{\partial^2 \mathbf{E}}{\partial t^2} = 0$</li>
+                        <li><strong>Boundary Matching:</strong> $D_{1n} - D_{2n} = \rho_s$</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- Scalars and Vectors Definition & Properties -->
+        <section class="content-box">
+            <h2 class="section-title">Scalars and Vectors: Definitions & Properties</h2>
+            <div class="grid-2">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">1. Scalar Quantity & Field</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.4rem;"><strong>Definition:</strong> A quantity that has only magnitude (e.g., mass, temperature, electric potential). A <strong>Scalar Field</strong> defines a scalar function distributed over space</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;"><strong>Properties:</strong> Follows ordinary rules of algebraic addition and multiplication; independent of coordinate direction.</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">2. Vector Quantity & Field</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.4rem;"><strong>Definition:</strong> A quantity that has both magnitude and a specific direction in space (e.g., velocity, force, electric field intensity $\mathbf{E}$). A <strong>Vector Field</strong> assigns a vector to every point in space</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;"><strong>Properties:</strong> Characterized by magnitude and direction, represented using unit vectors, and combines via geometric vector laws.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vector Algebra Methods -->
+        <section class="content-box">
+            <h2 class="section-title">Vector Algebra Methods & Operations</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Scaling of a Vector</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Operation:</strong> Multiplying a vector $\mathbf{A}$ by a scalar $k$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$k\mathbf{A} = (k A_x)\mathbf{a}_x + (k A_y)\mathbf{a}_y + (k A_z)\mathbf{a}_z$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Addition of Vectors</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Operation:</strong> Combining two vectors $\mathbf{A}$ and $\mathbf{B}$ using the parallelogram or head-to-tail rule</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{A} + \mathbf{B} = (A_x + B_x)\mathbf{a}_x + (A_y + B_y)\mathbf{a}_y + (A_z + B_z)\mathbf{a}_z$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Subtraction of Vectors</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Operation:</strong> Finding the difference between vector $\mathbf{A}$ and $\mathbf{B}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{A} - \mathbf{B} = (A_x - B_x)\mathbf{a}_x + (A_y - B_y)\mathbf{a}_y + (A_z - B_z)\mathbf{a}_z$</p>
+                </div>
+            </div>
+        </section>
+        <!-- Dot Product and Vector Product -->
+        <section class="content-box">
+            <h2 class="section-title">Scalar (Dot) Product & Vector (Cross) Product</h2>
+            <div class="grid-2">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">1. Scalar or Dot Product ($\mathbf{A} \cdot \mathbf{B}$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.4rem;"><strong>Definition & Formula:</strong> Results in a scalar quantity given by $\mathbf{A} \cdot \mathbf{B} = AB \cos\theta = A_x B_x + A_y B_y + A_z B_z$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;"><strong>Example:</strong> For $\mathbf{A} = 2\mathbf{a}_x + 3\mathbf{a}_y$ and $\mathbf{B} = 4\mathbf{a}_x - 5\mathbf{a}_y$, the dot product is $(2)(4) + (3)(-5) + (0)(0) = 8 - 15 = -7$</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">2. Vector or Cross Product ($\mathbf{A} \times \mathbf{B}$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.4rem;"><strong>Definition & Formula:</strong> Results in a vector perpendicular to both, given by $\mathbf{A} \times \mathbf{B} = AB \sin\theta \, \mathbf{a}_n$ or evaluated via determinant.</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;"><strong>Example:</strong> For $\mathbf{A} = \mathbf{a}_x + 2\mathbf{a}_y$ and $\mathbf{B} = 3\mathbf{a}_z$, $\mathbf{A} \times \mathbf{B} = (\mathbf{a}_x \times 3\mathbf{a}_z) + (2\mathbf{a}_y \times 3\mathbf{a}_z) = -3\mathbf{a}_y + 6\mathbf{a}_x$</p>
+                </div>
+            </div>
+        </section>
+        <!-- Unit Vector Cross Products -->
+        <section class="content-box">
+            <h2 class="section-title">Cross Products of Cartesian Unit Vectors</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Self Cross Products</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Parallel vectors ($\theta = 0^\circ$):</strong></p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{a}_x \times \mathbf{a}_x = 0$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{a}_y \times \mathbf{a}_y = 0$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{a}_z \times \mathbf{a}_z = 0$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cyclic Cross Products</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Right-hand screw progression:</strong></p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{a}_x \times \mathbf{a}_y = \mathbf{a}_z$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{a}_y \times \mathbf{a}_z = \mathbf{a}_x$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{a}_z \times \mathbf{a}_x = \mathbf{a}_y$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Anti-Cyclic Cross Products</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Reversed direction:</strong></p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{a}_y \times \mathbf{a}_x = -\mathbf{a}_z$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{a}_z \times \mathbf{a}_y = -\mathbf{a}_x$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{a}_x \times \mathbf{a}_z = -\mathbf{a}_y$</p>
+                </div>
+            </div>
+        </section>
+        <!-- Basic Laws of Vector Operations -->
+        <section class="content-box">
+            <h2 class="section-title">Basic Laws of Vector Addition, Subtraction, and Scalar Multiplication</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Vector Addition Laws</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Commutative Law:</strong> $\mathbf{A} + \mathbf{B} = \mathbf{B} + \mathbf{A}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Associative Law:</strong> $(\mathbf{A} + \mathbf{B}) + \mathbf{C} = \mathbf{A} + (\mathbf{B} + \mathbf{C})$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Scalar Multiplication Laws</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Distributive Law (Scalar):</strong> $(r + s)\mathbf{A} = r\mathbf{A} + s\mathbf{A}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Distributive Law (Vector):</strong> $r(\mathbf{A} + \mathbf{B}) = r\mathbf{A} + r\mathbf{B}$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Associative & Identity Laws</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Associative (Scalars):</strong> $r(s\mathbf{A}) = (rs)\mathbf{A}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Identity Law:</strong> $1\mathbf{A} = \mathbf{A}$</p>
+                </div>
+            </div>
+        </section>
+        <!-- Laws of Vector Subtraction -->
+        <section class="content-box">
+            <h2 class="section-title">Laws of Vector Subtraction</h2>
+            <div class="grid-2">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">Vector Subtraction Definition</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Subtraction of a vector is defined in terms of addition with the negative of the vector: $\mathbf{A} - \mathbf{B} = \mathbf{A} + (-\mathbf{B})$</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">Non-Commutative Property</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Vector subtraction is not commutative, as reversing the order yields the negative result: $\mathbf{A} - \mathbf{B} = -(\mathbf{B} - \mathbf{A})$</p>
+                </div>
+            </div>
+        </section>
+<!-- Position, Distance, Differential Elements & Coordinate Ranges -->
+        <section class="content-box">
+            <h2 class="section-title">Position, Distance, Differential Elements & Coordinate Ranges</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cartesian Coordinates $(x, y, z)$</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Variable Ranges:</strong><br> $-\infty < x < \infty$, <br> $-\infty < y < \infty$, <br> $-\infty < z < \infty$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Constant Planes:</strong> <br>$x = \text{const}$ (yz-plane), <br> $y = \text{const}$ (xz-plane),<br> $z = \text{const}$ (xy-plane)</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Position Vector & Distance:</strong><br> $\mathbf{r} = x\mathbf{a}_x + y\mathbf{a}_y + z\mathbf{a}_z$,<br> $R = \sqrt{\Delta x^2 + \Delta y^2 + \Delta z^2}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Differential Length & Volume:</strong> <br>$d\mathbf{l} = dx\mathbf{a}_x + dy\mathbf{a}_y + dz\mathbf{a}_z$,<br> $dv = dx\,dy\,dz$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cylindrical Coordinates <br> $(\rho, \phi, z)$</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Variable Ranges:</strong> <br>$0 \le \rho < \infty$, <br> $0 \le \phi < 2\pi$, <br> $-\infty < z < \infty$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Constant Surfaces:</strong><br> $\rho = \text{const}$ (cylinder),<br> $\phi = \text{const}$ (half-plane),<br> $z = \text{const}$ (plane)</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Position Vector & Distance:</strong><br> $\mathbf{r} = \rho\mathbf{a}_\rho + z\mathbf{a}_z$,<br> $R = \sqrt{\rho_1^2 + \rho_2^2 - 2\rho_1\rho_2\cos(\phi_2-\phi_1) + (z_2-z_1)^2}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Differential Length & Volume:</strong><br> $d\mathbf{l} = d\rho\mathbf{a}_\rho + \rho d\phi\mathbf{a}_\phi + dz\mathbf{a}_z$,<br> $dv = \rho\,d\rho\,d\phi\,dz$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Spherical Coordinates <br> $(r, \theta, \phi)$</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Variable Ranges:</strong><br> $0 \le r < \infty$, <br> $0 \le \theta \le \pi$, <br> $0 \le \phi < 2\pi$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Constant Surfaces:</strong><br> $r = \text{const}$ (sphere), <br> $\theta = \text{const}$ (cone), <br>$\phi = \text{const}$ (half-plane)</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Position Vector & Distance:</strong> <br>$\mathbf{r} = r\mathbf{a}_r$, <br> $R = \sqrt{r_1^2 + r_2^2 - 2r_1r_2[\cos\theta_1\cos\theta_2 + \sin\theta_1\sin\theta_2\cos(\phi_2-\phi_1)]}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Differential Length & Volume:</strong><br> $d\mathbf{l} = dr\mathbf{a}_r + r\,d\theta\mathbf{a}_\theta + r\sin\theta\,d\phi\mathbf{a}_\phi$, <br> $dv = r^2\sin\theta\,dr\,d\theta\,d\phi$</p>
+                </div>
+            </div>
+        </section>
+        <!-- Scalar Properties and Applications -->
+        <section class="content-box">
+            <h2 class="section-title">Properties and Applications of Scalar (Dot) Product</h2>
+            <div class="grid-2">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">Properties of Scalar Product</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;"><strong>1. Commutative Law:</strong> $\mathbf{A} \cdot \mathbf{B} = \mathbf{B} \cdot \mathbf{A}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;"><strong>2. Distributive Law:</strong> $\mathbf{A} \cdot (\mathbf{B} + \mathbf{C}) = \mathbf{A} \cdot \mathbf{B} + \mathbf{A} \cdot \mathbf{C}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;"><strong>3. Scalar Multiplication:</strong> $(k\mathbf{A}) \cdot \mathbf{B} = \mathbf{A} \cdot (k\mathbf{B}) = k(\mathbf{A} \cdot \mathbf{B})$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;"><strong>4. Orthogonality:</strong> $\mathbf{A} \cdot \mathbf{B} = 0$ if $\mathbf{A}$ and $\mathbf{B}$ are perpendicular ($\theta = 90^\circ$)</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;"><strong>5. Parallel Vectors:</strong> $\mathbf{A} \cdot \mathbf{B} = AB$ if vectors are parallel ($\theta = 0^\circ$)</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;"><strong>6. Anti-Parallel Vectors:</strong> $\mathbf{A} \cdot \mathbf{B} = -AB$ if vectors are anti-parallel ($\theta = 180^\circ$)</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.3rem;"><strong>7. Self-Product (Magnitude squared):</strong> $\mathbf{A} \cdot \mathbf{A} = A^2 \implies A = \sqrt{\mathbf{A} \cdot \mathbf{A}}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>8. Unit Vector Dot Products:</strong> $\mathbf{a}_x \cdot \mathbf{a}_x = \mathbf{a}_y \cdot \mathbf{a}_y = \mathbf{a}_z \cdot \mathbf{a}_z = 1$ and cross-axes products equal $0$</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">Applications of Scalar Product</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.4rem;"><strong>Finding Angle Between Vectors:</strong> $\cos\theta = \frac{\mathbf{A} \cdot \mathbf{B}}{AB}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.4rem;"><strong>Component Projection:</strong> Projection of vector $\mathbf{A}$ in the direction of vector $\mathbf{B}$ is given by $\mathbf{A} \cdot \mathbf{a}_b$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;"><strong>Work Done Calculation:</strong> Work done is expressed as the dot product of force and displacement vectors ($W = \mathbf{F} \cdot \mathbf{d}$)</p>
+                </div>
+            </div>
+        </section>
+        <!-- Category Hub Cards Grid -->
+        <h2 class="section-title" style="margin-top: 3rem;">Browse EMFT Chapters</h2>
+        <div class="grid">
+            <a href="electrostatics.html" class="card">
+                <div>
+                    <h3>Electrostatics</h3>
+                    <p>Electric fields, Coulomb's Law, Gauss's Law, potential, and dielectrics.</p>
+                </div>
+                <span class="card-link">Explore &rarr;</span>
+            </a>
+
+            <a href="magnetostatics.html" class="card">
+                <div>
+                    <h3>Magnetostatics</h3>
+                    <p>Magnetic fields, Biot-Savart, Ampere's Law, and forces.</p>
+                </div>
+                <span class="card-link">Explore &rarr;</span>
+            </a>
+
+            <a href="waves.html" class="card">
+                <div>
+                    <h3>Transmission & Waveguides</h3>
+                    <p>Time-varying fields, Maxwell's equations, and wave propagation.</p>
+                </div>
+                <span class="card-link">Explore &rarr;</span>
+            </a>
+
+            <a href="quiz.html" class="card">
+                <div>
+                    <h3>Quiz Page</h3>
+                    <p>Test your knowledge with practice questions and reviews.</p>
+                </div>
+                <span class="card-link">Start Quiz &rarr;</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 EMFT Summary Project. Mobile Optimized.</p>
+    </footer>
+
+</body>
+</html>

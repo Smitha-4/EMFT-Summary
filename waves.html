@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time-Varying Fields & Waveguides Summary - EMFT Hub</title>
+    
+    <!-- KaTeX CSS for Formula Styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    
+    <!-- KaTeX JavaScript Engine -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    
+    <!-- Auto-render extension to automatically parse $ and $$ formulas -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });"></script>
+
+    <style>
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --primary-color: #00adb5;
+            --text-color: #eeeeee;
+            --text-secondary: #aaaaaa;
+            --border-color: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        /* Main Content Layout */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 0 0.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Responsive Grid Layouts */
+        .grid-2, .grid-3 {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        /* Cards & Section Boxes */
+        .content-box {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            overflow-x: auto;
+        }
+
+        .sub-card {
+            background-color: var(--bg-color);
+            padding: 1.2rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Section Titles */
+        h2.section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.4rem;
+        }
+
+        /* Tables for Mobile & Tab */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            background-color: var(--bg-color);
+            border-radius: 6px;
+            min-width: 600px;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: var(--border-color);
+            color: var(--text-color);
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0.4rem 0;
+            max-width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            margin-top: 3rem;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.8rem 1rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .content-box {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Menu Bar -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">EMFT Hub</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="electrostatics.html">Electrostatics</a></li>
+                <li><a href="magnetostatics.html">Magnetostatics</a></li>
+                <li><a href="waves.html" class="active">Transmission & Waveguides</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <section class="hero">
+            <h1>Time-Varying Fields & Waveguides Summary</h1>
+            <p>Maxwell's equations, electromagnetic waves, transmission lines, and waveguide propagation parameters.</p>
+        </section>
+
+        <!-- Fundamental Laws & Maxwell's Equations -->
+        <section class="content-box">
+            <h2 class="section-title">Maxwell's Equations for Time-Varying Fields</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Law / Name</th>
+                            <th>Differential (Point) Form</th>
+                            <th>Integral Form</th>
+                            <th>Physical Significance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Faraday's Law</td>
+                            <td>$$\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}$$</td>
+                            <td>$$\oint_C \mathbf{E} \cdot d\mathbf{l} = -\frac{\partial}{\partial t} \int_S \mathbf{B} \cdot d\mathbf{s}$$</td>
+                            <td>Time-varying magnetic field induces an electric field.</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Ampere-Maxwell Law</td>
+                            <td>$$\nabla \times \mathbf{H} = \mathbf{J} + \frac{\partial \mathbf{D}}{\partial t}$$</td>
+                            <td>$$\oint_C \mathbf{H} \cdot d\mathbf{l} = \int_S \left(\mathbf{J} + \frac{\partial \mathbf{D}}{\partial t}\right) \cdot d\mathbf{s}$$</td>
+                            <td>Magnetic fields are produced by conduction current and displacement current.</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Gauss's Law for Electricity</td>
+                            <td>$$\nabla \cdot \mathbf{D} = \rho_v$$</td>
+                            <td>$$\oint_S \mathbf{D} \cdot d\mathbf{s} = Q_{\text{enc}}$$</td>
+                            <td>Electric flux diverges from volume charge sources.</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Gauss's Law for Magnetism</td>
+                            <td>$$\nabla \cdot \mathbf{B} = 0$$</td>
+                            <td>$$\oint_S \mathbf{B} \cdot d\mathbf{s} = 0$$</td>
+                            <td>Absence of isolated magnetic charges (monopoles).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Core Quantities Definition Section -->
+        <section class="content-box">
+            <h2 class="section-title">Core Time-Varying & Wave Quantities, Definitions & Units</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Quantity</th>
+                            <th>Symbol</th>
+                            <th>Definition</th>
+                            <th>SI Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Propagation Constant</td>
+                            <td>$\gamma$</td>
+                            <td>Complex measure of phase shift and attenuation per unit length ($\alpha + j\beta$).</td>
+                            <td>per meter ($\text{m}^{-1}$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Attenuation Constant</td>
+                            <td>$\alpha$</td>
+                            <td>Rate of amplitude decay of an electromagnetic wave along the direction of propagation.</td>
+                            <td>Np per meter ($\text{Np/m}$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Phase Constant</td>
+                            <td>$\beta$</td>
+                            <td>Phase change per unit length along the wave propagation path.</td>
+                            <td>radians per meter ($\text{rad/m}$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Intrinsic Impedance</td>
+                            <td>$\eta$</td>
+                            <td>Ratio of electric field intensity to magnetic field intensity in a medium ($\sqrt{\frac{j\omega\mu}{\sigma + j\omega\epsilon}}$).</td>
+                            <td>Ohms ($\Omega$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Poynting Vector</td>
+                            <td>$\mathbf{S}$</td>
+                            <td>Directional energy flux density of an electromagnetic field ($\mathbf{E} \times \mathbf{H}$).</td>
+                            <td>Watts per square meter ($\text{W/m}^2$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Characteristic Impedance</td>
+                            <td>$Z_0$</td>
+                            <td>Ratio of voltage to current waves in a transmission line ($\sqrt{\frac{R+j\omega L}{G+j\omega C}}$).</td>
+                            <td>Ohms ($\Omega$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Reflection Coefficient</td>
+                            <td>$\Gamma$ or $\rho$</td>
+                            <td>Ratio of reflected wave amplitude to incident wave amplitude.</td>
+                            <td>Dimensionless (complex)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Standing Wave Ratio</td>
+                            <td>$\text{SWR}$ or $S$</td>
+                            <td>Ratio of maximum to minimum voltage amplitudes on a transmission line.</td>
+                            <td>Dimensionless ($\ge 1$)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Wave Propagation in Media -->
+        <section class="content-box">
+            <h2 class="section-title">Electromagnetic Waves Across Media</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Lossless Dielectric ($\sigma = 0$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Parameters:</strong> $\alpha = 0, \beta = \omega\sqrt{\mu\epsilon}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\eta = \sqrt{\frac{\mu}{\epsilon}}, \quad v = \frac{1}{\sqrt{\mu\epsilon}}$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Good Conductor ($\sigma \gg \omega\epsilon$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Parameters:</strong> Skin depth $\delta = \frac{1}{\sqrt{\pi f \mu \sigma}}$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\alpha = \beta = \sqrt{\pi f \mu \sigma}, \quad \eta = (1+j)\sqrt{\frac{\pi f \mu}{\sigma}}$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Free Space ($\sigma=0, \epsilon=\epsilon_0, \mu=\mu_0$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Parameters:</strong> Speed of light $c = 3 \times 10^8$ m/s</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\eta_0 = \sqrt{\frac{\mu_0}{\epsilon_0}} \approx 377\,\Omega$</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transmission Lines & Waveguides -->
+        <section class="content-box">
+            <h2 class="section-title">Transmission Lines & Rectangular Waveguides</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Input Impedance ($Z_{\text{in}}$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Line Length:</strong> $l$ with Load $Z_L</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$Z_{\text{in}} = Z_0 \frac{Z_L + j Z_0 \tan(\beta l)}{Z_0 + j Z_L \tan(\beta l)}$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cutoff Frequency ($f_c$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Rectangular Guide:</strong> Dimensions $a \times b$ ($m, n$ modes)</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$f_c = \frac{v}{2}\sqrt{\left(\frac{m}{a}\right)^2 + \left(\frac{n}{b}\right)^2}$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Guide Wavelength ($\lambda_g$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Waveguide Parameter</strong></p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\lambda_g = \frac{\lambda}{\sqrt{1 - (f_c/f)^2}}$</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 EMFT Summary Project - Time-Varying Fields & Waveguides</p>
+    </footer>
+
+</body>
+</html>

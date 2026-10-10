@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrostatics Summary - EMFT Hub</title>
+    
+    <!-- KaTeX CSS for Formula Styling -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    
+    <!-- KaTeX JavaScript Engine -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    
+    <!-- Auto-render extension to automatically parse $ and $$ formulas -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });"></script>
+
+    <style>
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --primary-color: #00adb5;
+            --text-color: #eeeeee;
+            --text-secondary: #aaaaaa;
+            --border-color: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        header {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        /* Main Content Layout */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 0 0.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Responsive Grid Layouts */
+        .grid-2, .grid-3 {
+            display: grid;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        /* Cards & Section Boxes */
+        .content-box {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            overflow-x: auto;
+        }
+
+        .sub-card {
+            background-color: var(--bg-color);
+            padding: 1.2rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Section Titles */
+        h2.section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.4rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            margin-top: 3rem;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.8rem 1rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .content-box {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Menu Bar -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">EMFT Hub</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="electrostatics.html" class="active">Electrostatics</a></li>
+                <li><a href="magnetostatics.html">Magnetostatics</a></li>
+                <li><a href="waves.html">Transmission & Waveguides</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <section class="hero">
+            <h1>Electrostatics Summary</h1>
+            <p>Core theorems, field quantities, and charge distributions across different coordinate systems.</p>
+        </section>
+<!-- Simple Definitions and Relations of Quantities -->
+        <section class="content-box">
+            <h2 class="section-title">Relationships Among Electromagnetic Quantities in Simple Terms</h2>
+            <div class="grid-2">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">Electric Field Intensity ($\mathbf{E}$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Electric force experienced per unit positive test charge: $\mathbf{E} = \frac{\mathbf{F}}{Q}$[cite: 1].</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">Electric Flux Density ($\mathbf{D}$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Total electric flux per unit area, directly proportional to the electric field in a medium: $\mathbf{D} = \varepsilon \mathbf{E}$[cite: 1].</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">Potential Difference ($V$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Work done in moving a unit positive charge between two points against the electric field: $V = -\int \mathbf{E} \cdot d\mathbf{l}$[cite: 1].</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">Current Density ($\mathbf{J}$)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Electric current flowing per unit cross-sectional area: $\mathbf{J} = \frac{I}{A} = \rho_v \mathbf{v}$[cite: 1].</p>
+                </div>
+            </div>
+        </section>
+        <!-- Fundamental Theorems -->
+        <section class="content-box">
+            <h2 class="section-title">Fundamental Theorems of Electrostatics</h2>
+            <div class="grid-2">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">1. Coulomb's Law</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Defines force and field intensity generated by static point charges.</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">2. Gauss's Law (Integral Form)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">$$\oint \mathbf{D} \cdot d\mathbf{s} = Q_{\text{enclosed}}$$</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">3. Gauss's Law (Point Form)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">$$\nabla \cdot \mathbf{D} = \rho_v$$</p>
+                </div>
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.4rem; font-size: 1.05rem;">4. Conservative Property</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">$$\nabla \times \mathbf{E} = 0 \implies \mathbf{E} = -\nabla V$$</p>
+                </div>
+            </div>
+        </section>
+<!-- Core Quantities Definition Section -->
+        <section class="content-box">
+            <h2 class="section-title">Core Electrostatic Quantities, Definitions & Units</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Quantity</th>
+                            <th>Symbol</th>
+                            <th>Definition</th>
+                            <th>SI Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Electric Force</td>
+                            <td>$\mathbf{F}$</td>
+                            <td>The attractive or repulsive electrostatic force experienced by a charge in an electric field.</td>
+                            <td>Newtons ($\text{N}$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Electric Field Intensity</td>
+                            <td>$\mathbf{E}$</td>
+                            <td>The electrostatic force experienced per unit test charge.</td>
+                            <td>Volts per meter ($\text{V/m}$) or ($\text{N/C}$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Electric Flux</td>
+                            <td>$\Psi$</td>
+                            <td>The total measure of electric field lines passing through a given surface.</td>
+                            <td>Coulombs ($\text{C}$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Electric Flux Density</td>
+                            <td>$\mathbf{D}$</td>
+                            <td>A measure of the strength of electric flux per unit area normal to the field.</td>
+                            <td>Coulombs per square meter ($\text{C/m}^2$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Electric Potential</td>
+                            <td>$V$</td>
+                            <td>The work done per unit positive charge in bringing it from infinity to a point in the field.</td>
+                            <td>Volts ($\text{V}$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Electric Charge</td>
+                            <td>$Q$</td>
+                            <td>The fundamental property of matter responsible for electrostatic interactions.</td>
+                            <td>Coulombs ($\text{C}$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Volume Charge Density</td>
+                            <td>$\rho_v$</td>
+                            <td>The amount of charge distributed continuously per unit volume.</td>
+                            <td>Coulombs per cubic meter ($\text{C/m}^3$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Surface Charge Density</td>
+                            <td>$\sigma$</td>
+                            <td>The amount of charge distributed continuously per unit surface area.</td>
+                            <td>Coulombs per square meter ($\text{C/m}^2$)</td>
+                        </tr>
+                        <tr>
+                            <td style="color: var(--text-color); font-weight: 500;">Line Charge Density</td>
+                            <td>$\lambda$</td>
+                            <td>The amount of charge distributed continuously per unit length.</td>
+                            <td>Coulombs per meter ($\text{C/m}$)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!-- 1. ELECTRIC FORCE -->
+        <section class="content-box">
+            <h2 class="section-title">Electric Force ($\mathbf{F}$) Across Geometries & Systems</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Point Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{F} = \frac{qQ}{4\pi\varepsilon r^2} \mathbf{a}_r$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Line Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{F} = \frac{q\lambda}{2\pi\varepsilon \rho} \mathbf{a}_\rho$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Sheet of Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cartesian $(x, y, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{F} = \frac{q\sigma}{2\varepsilon} \mathbf{a}_n$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Uniform Charged Ring</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical/Cartesian Axis</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{F}_z = \frac{qQ z}{4\pi\varepsilon (R^2 + z^2)^{3/2}} \mathbf{a}_z$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Circular Disk (Axis)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{F}_z = \frac{q\sigma}{2\varepsilon} \left(1 - \frac{z}{\sqrt{z^2 + R^2}}\right) \mathbf{a}_z$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cylindrical Shell / Wire</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">Inside ($\rho < a$): $0$<br>Outside ($\rho \ge a$): $\frac{q a\sigma}{\varepsilon \rho} \mathbf{a}_\rho$</p>
+                </div>
+
+                <div class="sub-card" style="grid-column: 1 / -1;">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Solid Sphere / Spherical Shell</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">Inside ($r < R$): $\mathbf{F} = \frac{q\rho_v r}{3\varepsilon} \mathbf{a}_r$ &nbsp;|&nbsp; Outside ($r \ge R$): $\mathbf{F} = \frac{qQ}{4\pi\varepsilon r^2} \mathbf{a}_r$</p>
+                </div>
+            </div>
+        </section>
+<!-- Electric Field Formulas for Different Charge Distributions -->
+        <section class="content-box">
+            <h2 class="section-title">Electric Field Intensity Formulas for Various Charge Distributions & Cases</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Point & Discrete Charges</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Point Charge:</strong> $\mathbf{E} = \frac{Q}{4\pi\varepsilon_0 r^2}\mathbf{a}_r$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Discrete System:</strong> $\mathbf{E} = \frac{1}{4\pi\varepsilon_0}\sum_{i=1}^{n} \frac{Q_i(\mathbf{r} - \mathbf{r}_i)}{|\mathbf{r} - \mathbf{r}_i|^3}$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Line & Ring Charges</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Infinite Line Charge ($\rho_L$):</strong> $\mathbf{E} = \frac{\rho_L}{2\pi\varepsilon_0 \rho}\mathbf{a}_\rho$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Charged Circular Ring:</strong> $\mathbf{E} = \frac{Qz}{4\pi\varepsilon_0(z^2 + a^2)^{3/2}}\mathbf{a}_z$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Sheet & Volume Distributions</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>Infinite Sheet ($\rho_s$):</strong> $\mathbf{E} = \frac{\rho_s}{2\varepsilon_0}\mathbf{a}_n$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;"><strong>Uniform Sphere ($r \le R$):</strong> $\mathbf{E} = \frac{\rho_v r}{3\varepsilon_0}\mathbf{a}_r$ <br><strong>($r > R$):</strong> $\mathbf{E} = \frac{Q}{4\pi\varepsilon_0 r^2}\mathbf{a}_r$</p>
+                </div>
+            </div>
+        </section>
+        <!-- 2. ELECTRIC FLUX -->
+        <section class="content-box">
+            <h2 class="section-title">Electric Flux ($\Psi$) Across Geometries & Systems</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Point Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\Psi = Q$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Line Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\Psi_{\text{enclosed}} = \lambda L$ (per length $L$)</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Sheet of Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cartesian $(x, y, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\Psi = \sigma S$ (for area $S$)</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Uniform Charged Ring</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical/Cartesian Axis</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\Psi = Q$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Circular Disk (Axis)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\Psi = Q = \pi R^2 \sigma$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cylindrical Shell / Wire</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\Psi = 2\pi a L \sigma$</p>
+                </div>
+
+                <div class="sub-card" style="grid-column: 1 / -1;">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Solid Sphere / Spherical Shell</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\Psi = Q_{\text{enclosed}}$ (equals $Q$ for full sphere)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. ELECTRIC FLUX DENSITY -->
+        <section class="content-box">
+            <h2 class="section-title">Electric Flux Density ($\mathbf{D}$) Across Geometries & Systems</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Point Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{D} = \frac{Q}{4\pi r^2} \mathbf{a}_r$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Line Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{D} = \frac{\lambda}{2\pi \rho} \mathbf{a}_\rho$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Sheet of Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cartesian $(x, y, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{D} = \frac{\sigma}{2} \mathbf{a}_n$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Uniform Charged Ring</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical/Cartesian Axis</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{D}_z = \frac{Q z}{4\pi (R^2 + z^2)^{3/2}} \mathbf{a}_z$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Circular Disk (Axis)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\mathbf{D}_z = \frac{\sigma}{2} \left(1 - \frac{z}{\sqrt{z^2 + R^2}}\right) \mathbf{a}_z$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cylindrical Shell / Wire</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">Inside ($\rho < a$): $0$<br>Outside ($\rho \ge a$): $\frac{a\sigma}{\rho} \mathbf{a}_\rho$</p>
+                </div>
+
+                <div class="sub-card" style="grid-column: 1 / -1;">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Solid Sphere / Spherical Shell</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">Inside ($r < R$): $\mathbf{D} = \frac{\rho_v r}{3} \mathbf{a}_r$ &nbsp;|&nbsp; Outside ($r \ge R$): $\mathbf{D} = \frac{Q}{4\pi r^2} \mathbf{a}_r$</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. ELECTRIC POTENTIAL -->
+        <section class="content-box">
+            <h2 class="section-title">Electric Potential ($V$) Across Geometries & Systems</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Point Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$V = \frac{Q}{4\pi\varepsilon r}$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Line Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$V = -\frac{\lambda}{2\pi\varepsilon} \ln\left(\frac{\rho}{\rho_0}\right)$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Sheet of Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cartesian $(x, y, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$V = -\frac{\sigma}{2\varepsilon} z$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Uniform Charged Ring</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical/Cartesian Axis</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$V = \frac{Q}{4\pi\varepsilon \sqrt{R^2 + z^2}}$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Circular Disk (Axis)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$V = \frac{\sigma}{2\varepsilon}\left(\sqrt{z^2 + R^2} - z\right)$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cylindrical Shell / Wire</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">Outside ($\rho \ge a$): $\frac{a\sigma}{\varepsilon}\ln\left(\frac{b}{\rho}\right)$</p>
+                </div>
+
+                <div class="sub-card" style="grid-column: 1 / -1;">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Solid Sphere / Spherical Shell</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">Inside ($r < R$): $V = \frac{Q}{4\pi\varepsilon R}\left(1 - \frac{r^2}{3R^2}\right)$ &nbsp;|&nbsp; Outside ($r \ge R$): $V = \frac{Q}{4\pi\varepsilon r}$</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CHARGE -->
+        <section class="content-box">
+            <h2 class="section-title">Charge ($Q$) Across Geometries & Systems</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Point Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$Q = \text{Discrete Charge } (q)$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Line Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$Q = \int \lambda \, dl = \lambda L$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Sheet of Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cartesian $(x, y, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$Q = \int \sigma \, ds = \sigma S$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Uniform Charged Ring</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical/Cartesian Axis</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$Q = \oint \lambda \, dl = 2\pi R \lambda$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Circular Disk (Axis)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$Q = \int_0^{2\pi} \int_0^R \sigma \rho \, d\rho \, d\phi = \pi R^2 \sigma$</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cylindrical Shell / Wire</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$Q = \int \sigma \, ds = 2\pi a L \sigma$</p>
+                </div>
+
+                <div class="sub-card" style="grid-column: 1 / -1;">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Solid Sphere / Spherical Shell</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$Q = \int \rho_v \, dv = \frac{4}{3}\pi R^3 \rho_v$ (Solid) &nbsp;|&nbsp; $Q = 4\pi R^2 \sigma$ (Shell)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CHARGE DENSITY -->
+        <section class="content-box">
+            <h2 class="section-title">Charge Density ($\rho_v, \sigma, \lambda$) Across Geometries & Systems</h2>
+            <div class="grid-3">
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Point Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\rho_v = Q \, \delta(r)$ (Dirac Delta)</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Line Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\lambda = \frac{dQ}{dl}$ ($\text{C/m}$)</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Infinite Sheet of Charge</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cartesian $(x, y, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\sigma = \frac{dQ}{ds}$ ($\text{C/m}^2$)</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Uniform Charged Ring</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical/Cartesian Axis</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\lambda = \frac{Q}{2\pi R}$ ($\text{C/m}$)</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Circular Disk (Axis)</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\sigma = \frac{Q}{\pi R^2}$ ($\text{C/m}^2$)</p>
+                </div>
+
+                <div class="sub-card">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Cylindrical Shell / Wire</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Cylindrical $(\rho, \phi, z)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\sigma = \frac{Q}{2\pi a L}$ ($\text{C/m}^2$)</p>
+                </div>
+
+                <div class="sub-card" style="grid-column: 1 / -1;">
+                    <strong style="color: var(--primary-color); display: block; margin-bottom: 0.5rem; font-size: 1rem;">Solid Sphere / Spherical Shell</strong>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 0.4rem;"><strong>System:</strong> Spherical $(r, \theta, \phi)$</p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">$\rho_v = \frac{3Q}{4\pi R^3}$ ($\text{C/m}^3$) (Solid) &nbsp;|&nbsp; $\sigma = \frac{Q}{4\pi R^2}$ ($\text{C/m}^2$) (Shell)</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 EMFT Summary Project - Electrostatics</p>
+    </footer>
+
+</body>
+</html>
